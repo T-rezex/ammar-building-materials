@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-primary shrink-0" size={20} />
-                <span className="text-secondary font-poppins font-bold">support@ammar.sa</span>
+                <span className="text-secondary font-poppins font-bold">ammarbusinesscompany@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             جميع الحقوق محفوظة لـ <span className="font-black text-primary">عمار</span> © {currentYear}
           </p>
           <div className="flex gap-6 items-center opacity-40 grayscale">
-             <span className="text-xs font-bold text-dark">مدعوم من تقنيات عمار الرقمية</span>
+            <span className="text-xs font-bold text-dark">مدعوم من تقنيات عمار الرقمية</span>
           </div>
         </div>
       </div>
