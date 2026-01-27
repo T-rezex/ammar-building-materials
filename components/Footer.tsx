@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import logo from '../assets/logo.png';
+import logo from '../src/assets/logo.png';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();

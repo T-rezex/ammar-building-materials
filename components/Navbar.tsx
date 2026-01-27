@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png';
+import logo from '../src/assets/logo.png';
 
 const Navbar: React.FC = () => {
     // ... state ...
