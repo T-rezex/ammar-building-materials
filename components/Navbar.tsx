@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import logo from '../src/assets/logo_new.png';
 import { useAuth } from '../context/AuthContext';
 
+import { useCart } from '../context/CartContext';
+
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { isAuthenticated, user, logout } = useAuth();
+    const { cartCount } = useCart();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -60,7 +63,9 @@ const Navbar: React.FC = () => {
                     <div className="hidden md:flex items-center gap-4">
                         <Link to="/cart" className="relative p-2 text-gray-600 hover:text-primary transition-colors">
                             <ShoppingCart className="w-6 h-6" />
-                            <span className="absolute top-0 right-0 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                            {cartCount > 0 && (
+                                <span className="absolute top-0 right-0 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">{cartCount}</span>
+                            )}
                         </Link>
 
                         {isAuthenticated && user ? (

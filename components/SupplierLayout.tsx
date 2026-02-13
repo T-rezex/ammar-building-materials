@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, DollarSign, Truck, LogOut, Settings } from 'lucide-react';
-import Navbar from './Navbar'; // Reuse Navbar for top bar or create a new one
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Package, ShoppingCart, DollarSign, Truck, LogOut, Settings, User } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface SupplierLayoutProps {
     children: React.ReactNode;
@@ -9,11 +9,18 @@ interface SupplierLayoutProps {
 
 const SupplierLayout: React.FC<SupplierLayoutProps> = ({ children }) => {
     const location = useLocation();
+    const { logout, user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     const menuItems = [
         { name: 'لوحة التحكم', path: '/supplier/dashboard', icon: LayoutDashboard },
         { name: 'المنتجات', path: '/supplier/products', icon: Package },
-        { name: 'المخزون', path: '/supplier/inventory', icon: Package }, // Used Package again as generic inventory icon
+        { name: 'المخزون', path: '/supplier/inventory', icon: Package },
         { name: 'الطلبات', path: '/supplier/orders', icon: ShoppingCart },
         { name: 'المدفوعات', path: '/supplier/payments', icon: DollarSign },
         { name: 'اللوجستيات', path: '/supplier/logistics', icon: Truck },
@@ -28,9 +35,9 @@ const SupplierLayout: React.FC<SupplierLayoutProps> = ({ children }) => {
                     <span className="font-bold text-xl text-secondary-dark">بوابة الموردين</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">شركة أسمنت اليمامة</span>
-                    <div className="w-8 h-8 bg-gray-200 rounded-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Profile" />
+                    <span className="text-sm text-gray-600">{user?.name || 'المورد'}</span>
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
+                        <User className="w-5 h-5" />
                     </div>
                 </div>
             </div>
@@ -60,7 +67,7 @@ const SupplierLayout: React.FC<SupplierLayoutProps> = ({ children }) => {
                             <Settings className="w-5 h-5" />
                             <span>الإعدادات</span>
                         </button>
-                        <button className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 w-full">
+                        <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 w-full">
                             <LogOut className="w-5 h-5" />
                             <span>تسجيل الخروج</span>
                         </button>

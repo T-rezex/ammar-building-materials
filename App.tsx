@@ -34,46 +34,50 @@ import SupplierOrders from './pages/supplier/Orders';
 import SupplierPayments from './pages/supplier/Payments';
 import SupplierLogistics from './pages/supplier/Logistics';
 
+import { CartProvider } from './context/CartContext';
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/installments" element={<Installments />} />
-          <Route path="/tracking" element={<OrderTracking />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/installments" element={<Installments />} />
+            <Route path="/tracking" element={<OrderTracking />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
 
-          {/* Public Pages */}
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<Terms />} />
+            {/* Public Pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
 
-          {/* Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/supplier/register" element={<SupplierRegister />} />
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/supplier/register" element={<SupplierRegister />} />
 
-          {/* Buyer Routes */}
-          <Route path="/buyer/account" element={<BuyerAccount />} />
-          <Route path="/buyer/orders" element={<BuyerOrders />} />
+            {/* Buyer Routes */}
+            <Route path="/buyer/account" element={<BuyerAccount />} />
+            <Route path="/buyer/orders" element={<BuyerOrders />} />
 
-          {/* Supplier Routes */}
-          <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
-          <Route path="/supplier/products" element={<SupplierProducts />} />
-          <Route path="/supplier/inventory" element={<SupplierInventory />} />
-          <Route path="/supplier/orders" element={<SupplierOrders />} />
-          <Route path="/supplier/payments" element={<SupplierPayments />} />
-          <Route path="/supplier/logistics" element={<SupplierLogistics />} />
-        </Routes>
-      </Router>
+            {/* Supplier Routes */}
+            <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
+            <Route path="/supplier/products" element={<SupplierProducts />} />
+            <Route path="/supplier/inventory" element={<SupplierInventory />} />
+            <Route path="/supplier/orders" element={<SupplierOrders />} />
+            <Route path="/supplier/payments" element={<SupplierPayments />} />
+            <Route path="/supplier/logistics" element={<SupplierLogistics />} />
+          </Routes>
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 };

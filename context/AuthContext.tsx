@@ -7,7 +7,6 @@ interface User {
     name: string;
     email: string;
     type: UserType;
-    avatar?: string;
 }
 
 interface AuthContextType {
@@ -37,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             name: type === 'supplier' ? 'شركة اليمامة' : 'أحمد محمد',
             email: email,
             type: type,
-            avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+            // avatar removed
         };
 
         setUser(mockUser);
@@ -47,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = () => {
         setUser(null);
         localStorage.removeItem('ammar_user');
+        window.location.href = '/'; // Force redirect to home
     };
 
     return (

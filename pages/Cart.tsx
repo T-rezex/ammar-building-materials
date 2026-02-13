@@ -2,40 +2,13 @@ import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import { Trash2, Calendar, MapPin, Truck, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart, CartItem } from '../context/CartContext';
 
 const Cart: React.FC = () => {
-    // Dummy Cart Data
-    const [cartItems, setCartItems] = useState([
-        {
-            id: '1',
-            name: 'أسمنت بورتلاندي عادي - 50 كجم',
-            image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
-            price: 18.50,
-            unit: 'كيس',
-            supplier: 'شركة أسمنت اليمامة',
-            quantity: 100,
-        },
-        {
-            id: '2',
-            name: 'بلوك بركاني معزول 20x20x40',
-            image: 'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
-            price: 3.25,
-            unit: 'حبة',
-            supplier: 'مصنع البناء الحديث',
-            quantity: 500,
-        }
-    ]);
-
-    const updateQuantity = (id: string, newQty: number) => {
-        setCartItems(cartItems.map(item => item.id === id ? { ...item, quantity: Math.max(1, newQty) } : item));
-    };
-
-    const removeItem = (id: string) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
-    };
+    const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
 
     // Group by Supplier
-    const groupedItems: { [key: string]: typeof cartItems } = {};
+    const groupedItems: { [key: string]: CartItem[] } = {};
     cartItems.forEach(item => {
         if (!groupedItems[item.supplier]) {
             groupedItems[item.supplier] = [];
@@ -44,7 +17,7 @@ const Cart: React.FC = () => {
     });
 
     // Calculations
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const subtotal = cartTotal;
     const vat = subtotal * 0.15;
     const delivery = 350; // Flat rate for now
     const total = subtotal + vat + delivery;
@@ -91,7 +64,7 @@ const Cart: React.FC = () => {
                                                         {(item.price * item.quantity).toFixed(2)} ريال
                                                     </div>
 
-                                                    <button onClick={() => removeItem(item.id)} className="text-red-500 hover:text-red-700 p-2">
+                                                    <button onClick={() => removeFromCart(item.id)} className="text-red-500 hover:text-red-700 p-2">
                                                         <Trash2 className="w-5 h-5" />
                                                     </button>
                                                 </div>
