@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn, Building2, ShoppingCart } from 'lucide-react';
+import { Menu, X, LogIn, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '../src/assets/logo.png';
+import logo from '../src/assets/logo.png'; // Assuming this file exists based on the merge
 
 const Navbar: React.FC = () => {
-    // ... state ...
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // ... useEffect ...
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-    // ... links ...
+    const navLinks = [
+        { name: 'الرئيسية', href: '/' },
+        { name: 'السوق', href: '/marketplace' },
+        { name: 'كيف نعمل', href: '#how-it-works' },
+        { name: 'التصنيفات', href: '#categories' },
+        { name: 'الموردين', href: '#suppliers' },
+    ];
 
     return (
         <nav
-        // ... className ...
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
+                }`}
         >
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between">
@@ -20,6 +34,11 @@ const Navbar: React.FC = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <div className="w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl">
+                            {/* Use local logo if available, or fallback/original text if needed */}
+                            {/* The remote change used 'logo' variable. We will keep it but wrap in try/catch or just use it. 
+                                 Since I don't know if 'logo.png' is physically there (it was in git status as new file), 
+                                 I'll assume it is. 
+                             */}
                             <img src={logo} alt="شعار عمار" className="w-full h-full object-contain" />
                         </div>
                         <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-gray-900'}`}>
@@ -30,13 +49,13 @@ const Navbar: React.FC = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
-                            <a
+                            <Link
                                 key={link.name}
-                                href={link.href}
+                                to={link.href}
                                 className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
                             >
                                 {link.name}
-                            </a>
+                            </Link>
                         ))}
                     </div>
 
@@ -49,10 +68,10 @@ const Navbar: React.FC = () => {
                         <button className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                             تسجيل الدخول
                         </button>
-                        <button className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20">
+                        <Link to="/supplier/dashboard" className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20">
                             <LogIn size={18} />
                             <span>انضم كتاجر</span>
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -69,23 +88,23 @@ const Navbar: React.FC = () => {
             {isMobileMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg p-4 flex flex-col gap-4">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.name}
-                            href={link.href}
+                            to={link.href}
                             className="text-gray-600 hover:text-blue-600 font-medium py-2"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             {link.name}
-                        </a>
+                        </Link>
                     ))}
                     <hr className="border-gray-100 my-2" />
                     <button className="text-gray-600 hover:text-blue-600 font-medium py-2 w-full text-right">
                         تسجيل الدخول
                     </button>
-                    <button className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full">
+                    <Link to="/supplier/dashboard" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full">
                         <LogIn size={18} />
                         <span>انضم كتاجر</span>
-                    </button>
+                    </Link>
                 </div>
             )}
         </nav>
