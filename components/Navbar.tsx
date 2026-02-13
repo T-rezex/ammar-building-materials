@@ -1,31 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, LogIn, Building2, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../src/assets/logo.png';
 
 const Navbar: React.FC = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // ... state ...
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    // ... useEffect ...
 
-    const navLinks = [
-        { name: 'الرئيسية', href: '#home' },
-        { name: 'المميزات', href: '#features' },
-        { name: 'كيف نعمل', href: '#how-it-works' },
-        { name: 'التصنيفات', href: '#categories' },
-        { name: 'الموردين', href: '#suppliers' },
-    ];
+    // ... links ...
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
-                }`}
+        // ... className ...
         >
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between">
@@ -33,7 +20,7 @@ const Navbar: React.FC = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <div className="w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl">
-                            <img src="logo.png" alt="شعار عمار" className="w-full h-full object-contain" />
+                            <img src={logo} alt="شعار عمار" className="w-full h-full object-contain" />
                         </div>
                         <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-gray-900'}`}>
                             عمار

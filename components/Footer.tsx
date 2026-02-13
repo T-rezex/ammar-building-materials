@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import logo from '../src/assets/logo.png';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -13,7 +14,7 @@ const Footer: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-3 justify-start">
               <div className="w-16 h-16 flex items-center justify-center overflow-hidden">
-                <img src="logo.png" alt="عمار" className="w-full h-full object-contain" />
+                <img src={logo} alt="عمار" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl font-black text-dark">عمار</span>
             </div>
