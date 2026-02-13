@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn, ShoppingCart } from 'lucide-react';
+import { Menu, X, LogIn, ShoppingCart, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '../src/assets/logo.png'; // Assuming this file exists based on the merge
 
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -32,19 +31,14 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center justify-between">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-2">
-                        <div className="w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl">
-                            {/* Use local logo if available, or fallback/original text if needed */}
-                            {/* The remote change used 'logo' variable. We will keep it but wrap in try/catch or just use it. 
-                                 Since I don't know if 'logo.png' is physically there (it was in git status as new file), 
-                                 I'll assume it is. 
-                             */}
-                            <img src={logo} alt="شعار عمار" className="w-full h-full object-contain" />
+                    <Link to="/" className="flex items-center gap-2 group">
+                        <div className="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                            <Building2 className="w-6 h-6" />
                         </div>
                         <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-gray-900'}`}>
                             عمار
                         </span>
-                    </div>
+                    </Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
