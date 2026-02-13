@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { CheckCircle, CreditCard, Landmark, ChevronLeft, ShieldCheck, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Checkout: React.FC = () => {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [paymentMethod, setPaymentMethod] = useState<'full' | 'installments'>('full');
     const [selectedGateway, setSelectedGateway] = useState<'card' | 'mada' | 'apple' | 'bank'>('card');
@@ -178,7 +180,10 @@ const Checkout: React.FC = () => {
                                 </div>
 
                                 {paymentMethod === 'full' && (
-                                    <button className="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary-hover shadow-lg transition-all">
+                                    <button
+                                        onClick={() => navigate('/payment-success')}
+                                        className="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary-hover shadow-lg transition-all"
+                                    >
                                         تأكيد الطلب
                                     </button>
                                 )}

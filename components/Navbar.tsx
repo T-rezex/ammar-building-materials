@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn, ShoppingCart, Building2 } from 'lucide-react';
+import { Menu, X, LogIn, ShoppingCart, Building2, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../src/assets/logo.png'; // Assuming this file exists based on the merge
+import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { isAuthenticated, user, logout } = useAuth();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,13 +62,30 @@ const Navbar: React.FC = () => {
                             <ShoppingCart className="w-6 h-6" />
                             <span className="absolute top-0 right-0 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">2</span>
                         </Link>
-                        <button className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
-                            تسجيل الدخول
-                        </button>
-                        <Link to="/supplier/dashboard" className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20">
-                            <LogIn size={18} />
-                            <span>انضم كتاجر</span>
-                        </Link>
+
+                        {isAuthenticated && user ? (
+                            <div className="flex items-center gap-4">
+                                <span className="text-sm font-bold text-gray-700">مرحباً، {user.name}</span>
+                                {user.type === 'supplier' && (
+                                    <Link to="/supplier/dashboard" className="px-4 py-2 bg-secondary-dark text-white rounded-lg text-sm font-bold hover:bg-black">
+                                        لوحة التحكم
+                                    </Link>
+                                )}
+                                <button onClick={logout} className="text-sm text-red-600 font-medium hover:text-red-700">
+                                    تسجيل الخروج
+                                </button>
+                            </div>
+                        ) : (
+                            <>
+                                <Link to="/login" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                                    تسجيل الدخول
+                                </Link>
+                                <Link to="/supplier/register" className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg shadow-blue-600/20">
+                                    <LogIn size={18} />
+                                    <span>انضم كتاجر</span>
+                                </Link>
+                            </>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
