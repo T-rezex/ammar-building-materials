@@ -108,25 +108,51 @@ const Navbar: React.FC = () => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-lg p-4 flex flex-col gap-4">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            to={link.href}
-                            className="text-gray-600 hover:text-blue-600 font-medium py-2"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            {link.name}
-                        </Link>
-                    ))}
-                    <hr className="border-gray-100 my-2" />
-                    <button className="text-gray-600 hover:text-blue-600 font-medium py-2 w-full text-right">
-                        تسجيل الدخول
-                    </button>
-                    <Link to="/supplier/dashboard" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 w-full">
-                        <LogIn size={18} />
-                        <span>انضم كتاجر</span>
-                    </Link>
+                <div className="md:hidden fixed inset-0 top-[88px] z-40 bg-white/95 backdrop-blur-sm p-6 flex flex-col gap-6 overflow-y-auto transition-all duration-300">
+                    <div className="flex flex-col gap-4">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.name}
+                                to={link.href}
+                                className="text-xl font-bold text-gray-800 hover:text-primary transition-colors border-b border-gray-100 pb-2"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+
+                    <div className="mt-auto flex flex-col gap-4">
+                        {isAuthenticated ? (
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    setIsMobileMenuOpen(false);
+                                }}
+                                className="w-full py-3 text-center text-red-600 font-bold border border-red-100 rounded-xl hover:bg-red-50"
+                            >
+                                تسجيل الخروج
+                            </button>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/login"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="w-full py-3 text-center text-gray-700 font-bold border border-gray-200 rounded-xl hover:bg-gray-50"
+                                >
+                                    تسجيل الدخول
+                                </Link>
+                                <Link
+                                    to="/supplier/register"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="w-full py-3 text-center bg-primary text-white font-bold rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
+                                >
+                                    <LogIn size={20} />
+                                    <span>انضم كتاجر</span>
+                                </Link>
+                            </>
+                        )}
+                    </div>
                 </div>
             )}
         </nav>
