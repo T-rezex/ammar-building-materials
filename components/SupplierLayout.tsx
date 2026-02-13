@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingBag, CreditCard, Truck, LogOut, Settings } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, DollarSign, Truck, LogOut, Settings } from 'lucide-react';
 import Navbar from './Navbar'; // Reuse Navbar for top bar or create a new one
 
 interface SupplierLayoutProps {
@@ -13,9 +13,10 @@ const SupplierLayout: React.FC<SupplierLayoutProps> = ({ children }) => {
     const menuItems = [
         { name: 'لوحة التحكم', path: '/supplier/dashboard', icon: LayoutDashboard },
         { name: 'المنتجات', path: '/supplier/products', icon: Package },
-        { name: 'الطلبات', path: '/supplier/orders', icon: ShoppingBag },
-        { name: 'المدفوعات', path: '/supplier/payments', icon: CreditCard },
-        { name: 'الشحن والتوصيل', path: '/supplier/logistics', icon: Truck },
+        { name: 'المخزون', path: '/supplier/inventory', icon: Package }, // Used Package again as generic inventory icon
+        { name: 'الطلبات', path: '/supplier/orders', icon: ShoppingCart },
+        { name: 'المدفوعات', path: '/supplier/payments', icon: DollarSign },
+        { name: 'اللوجستيات', path: '/supplier/logistics', icon: Truck },
     ];
 
     return (

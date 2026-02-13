@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn, ShoppingCart, Building2, User } from 'lucide-react';
+import { Menu, X, LogIn, ShoppingCart, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logo from '../src/assets/logo.png'; // Assuming this file exists based on the merge
+import logo from '../src/assets/logo_new.png';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
@@ -35,8 +35,8 @@ const Navbar: React.FC = () => {
 
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                            <Building2 className="w-6 h-6" />
+                        <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden p-2">
+                            <img src={logo} alt="عمار" className="w-full h-full object-contain" />
                         </div>
                         <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-gray-900'}`}>
                             عمار
@@ -65,7 +65,10 @@ const Navbar: React.FC = () => {
 
                         {isAuthenticated && user ? (
                             <div className="flex items-center gap-4">
-                                <span className="text-sm font-bold text-gray-700">مرحباً، {user.name}</span>
+                                <Link to="/buyer/account" className="text-sm font-bold text-gray-700 hover:text-primary flex items-center gap-2">
+                                    <User className="w-5 h-5" />
+                                    <span>مرحباً، {user.name}</span>
+                                </Link>
                                 {user.type === 'supplier' && (
                                     <Link to="/supplier/dashboard" className="px-4 py-2 bg-secondary-dark text-white rounded-lg text-sm font-bold hover:bg-black">
                                         لوحة التحكم

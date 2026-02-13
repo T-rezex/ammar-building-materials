@@ -11,9 +11,9 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#FF9F1C', // Orange
-                    hover: '#E58E19',
-                    light: '#FFB85C',
+                    DEFAULT: '#00BCD4', // Cyan
+                    hover: '#00ACC1',
+                    light: '#4DD0E1',
                 },
                 secondary: {
                     DEFAULT: '#2D3748', // Dark Gray

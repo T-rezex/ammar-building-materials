@@ -1,7 +1,8 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import logo from '../src/assets/logo.png';
+import logo from '../src/assets/logo_new.png';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -33,10 +34,10 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-black text-dark mb-6 border-b-4 border-primary/20 w-fit pb-1">عن عمار</h4>
             <ul className="space-y-4">
-              <li><a href="#" className="text-secondary hover:text-primary transition-colors font-bold">من نحن</a></li>
-              <li><a href="#" className="text-secondary hover:text-primary transition-colors font-bold">تواصل معنا</a></li>
-              <li><a href="#" className="text-secondary hover:text-primary transition-colors font-bold">الوظائف</a></li>
-              <li><a href="#" className="text-secondary hover:text-primary transition-colors font-bold">سياسة الخصوصية</a></li>
+              <li><Link to="/about" className="text-secondary hover:text-primary transition-colors font-bold">من نحن</Link></li>
+              <li><Link to="/contact" className="text-secondary hover:text-primary transition-colors font-bold">تواصل معنا</Link></li>
+              <li><Link to="/careers" className="text-secondary hover:text-primary transition-colors font-bold">الوظائف</Link></li>
+              <li><Link to="/terms" className="text-secondary hover:text-primary transition-colors font-bold">سياسة الخصوصية</Link></li>
             </ul>
           </div>
 

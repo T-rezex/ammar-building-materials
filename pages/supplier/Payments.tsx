@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SupplierLayout from '../../components/SupplierLayout';
 import { Download, CreditCard, DollarSign, Clock, CheckCircle } from 'lucide-react';
 
 const SupplierPayments: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<'all' | 'paid' | 'pending'>('all');
+
     const transactions = [
         { id: 'TRX-9981', orderId: 1024, amount: 2450, date: '2023-10-14', status: 'pending', type: 'order_payment' },
         { id: 'TRX-9980', orderId: 1022, amount: 15600, date: '2023-10-13', status: 'paid', type: 'order_payment' },
         { id: 'PAY-5521', orderId: 0, amount: -5000, date: '2023-10-10', status: 'completed', type: 'payout' },
         { id: 'TRX-9975', orderId: 1018, amount: 4500, date: '2023-10-09', status: 'paid', type: 'installment_1_3' },
     ];
+
+    const filteredTransactions = transactions.filter(trx => {
+        if (activeTab === 'all') return true;
+        if (activeTab === 'paid') return trx.status === 'paid' || trx.status === 'completed';
+        if (activeTab === 'pending') return trx.status === 'pending';
+        return true;
+    });
 
     return (
         <SupplierLayout>
@@ -58,8 +67,28 @@ const SupplierPayments: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-gray-100">
+                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
                     <h2 className="text-lg font-bold text-gray-900">سجل المعاملات</h2>
+                    <div className="flex bg-gray-100 rounded-lg p-1">
+                        <button
+                            onClick={() => setActiveTab('all')}
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${activeTab === 'all' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                        >
+                            الكل
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('paid')}
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${activeTab === 'paid' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                        >
+                            مدفوع
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('pending')}
+                            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${activeTab === 'pending' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                        >
+                            معلق
+                        </button>
+                    </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-right">
@@ -74,7 +103,7 @@ const SupplierPayments: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {transactions.map(trx => (
+                            {filteredTransactions.map(trx => (
                                 <tr key={trx.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 font-mono text-gray-600 font-medium">{trx.id}</td>
                                     <td className="px-6 py-4">

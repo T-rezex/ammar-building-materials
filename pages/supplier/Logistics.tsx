@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SupplierLayout from '../../components/SupplierLayout';
 import { Truck, MapPin, Calendar, User, Navigation } from 'lucide-react';
 
 const SupplierLogistics: React.FC = () => {
-    const deliveries = [
+    const [deliveries, setDeliveries] = useState([
         { id: 'DLV-1022', orderId: 1022, driver: 'سعيد القحطاني', vehicle: 'شاحنة مرسيدس 6طن', status: 'on_way', dest: 'الرياض، حي النرجس' },
         { id: 'DLV-1025', orderId: 1025, driver: 'لم يتم التعيين', vehicle: '-', status: 'pending', dest: 'جدة، حي المحمدية' },
         { id: 'DLV-1020', orderId: 1020, driver: 'عمر ياسر', vehicle: 'فان بضائع', status: 'delivered', dest: 'الدمام، الصناعية' },
-    ];
+    ]);
+
+    const handleAssignDriver = (id: string) => {
+        const driverName = prompt('أدخل اسم السائق لتعيينه:');
+        if (driverName) {
+            setDeliveries(prev => prev.map(d =>
+                d.id === id ? { ...d, driver: driverName, status: 'on_way' } : d
+            ));
+        }
+    };
 
     return (
         <SupplierLayout>
@@ -25,7 +34,7 @@ const SupplierLogistics: React.FC = () => {
                     <div className="bg-blue-100 p-3 rounded-full text-blue-600"><Truck className="w-6 h-6" /></div>
                     <div>
                         <p className="text-gray-500 text-sm">جاري التوصيل</p>
-                        <h3 className="text-2xl font-bold text-gray-900">4 شحنات</h3>
+                        <h3 className="text-2xl font-bold text-gray-900">{deliveries.filter(d => d.status === 'on_way').length} شحنات</h3>
                     </div>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm flex items-center gap-4">
@@ -67,8 +76,8 @@ const SupplierLogistics: React.FC = () => {
                                 <div className="flex justify-between items-start mb-2">
                                     <span className="text-xs font-mono text-gray-500">{dlv.id}</span>
                                     <span className={`text-xs px-2 py-0.5 rounded font-bold ${dlv.status === 'on_way' ? 'bg-blue-100 text-blue-700' :
-                                            dlv.status === 'delivered' ? 'bg-green-100 text-green-700' :
-                                                'bg-gray-100 text-gray-600'
+                                        dlv.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                            'bg-gray-100 text-gray-600'
                                         }`}>
                                         {dlv.status === 'on_way' ? 'في الطريق' : dlv.status === 'delivered' ? 'وصل' : 'معلق'}
                                     </span>
@@ -83,7 +92,12 @@ const SupplierLogistics: React.FC = () => {
                                         <User className="w-3 h-3" /> {dlv.driver}
                                     </div>
                                     {dlv.status === 'pending' && (
-                                        <button className="text-xs text-primary font-bold hover:underline">تعيين</button>
+                                        <button
+                                            onClick={() => handleAssignDriver(dlv.id)}
+                                            className="text-xs text-primary font-bold hover:underline"
+                                        >
+                                            تعيين
+                                        </button>
                                     )}
                                 </div>
                             </div>
