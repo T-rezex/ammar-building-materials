@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Calculator, UploadCloud, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Installments: React.FC = () => {
+    const navigate = useNavigate();
     const [totalAmount, setTotalAmount] = useState(50000);
     const [downPayment, setDownPayment] = useState(5000);
     const [months, setMonths] = useState(12);
@@ -108,7 +110,10 @@ const Installments: React.FC = () => {
                                 </div>
 
                                 <div className="pt-4">
-                                    <button className="w-full bg-secondary-dark text-white font-bold py-4 rounded-lg hover:bg-black transition-all shadow-lg flex items-center justify-center gap-2">
+                                    <button
+                                        onClick={() => navigate('/payment-success')}
+                                        className="w-full bg-secondary-dark text-white font-bold py-4 rounded-lg hover:bg-black transition-all shadow-lg flex items-center justify-center gap-2"
+                                    >
                                         <CheckCircle className="w-5 h-5" />
                                         <span>إرسال طلب التمويل</span>
                                     </button>
