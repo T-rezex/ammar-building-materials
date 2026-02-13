@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LogIn, Building2 } from 'lucide-react';
+import { Menu, X, LogIn, Building2, ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -54,6 +55,10 @@ const Navbar: React.FC = () => {
 
                     {/* Desktop Actions */}
                     <div className="hidden md:flex items-center gap-4">
+                        <Link to="/cart" className="relative p-2 text-gray-600 hover:text-primary transition-colors">
+                            <ShoppingCart className="w-6 h-6" />
+                            <span className="absolute top-0 right-0 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                        </Link>
                         <button className="text-gray-600 hover:text-blue-600 font-medium transition-colors">
                             تسجيل الدخول
                         </button>

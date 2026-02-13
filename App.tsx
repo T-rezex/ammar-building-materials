@@ -1,54 +1,40 @@
 
-import React, { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Categories from './components/Categories';
-import Suppliers from './components/Suppliers';
-import FinalCTA from './components/FinalCTA';
-import Footer from './components/Footer';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Marketplace from './pages/Marketplace';
+import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import Installments from './pages/Installments';
+import OrderTracking from './pages/OrderTracking';
+import SupplierDashboard from './pages/supplier/Dashboard';
+import SupplierProducts from './pages/supplier/Products';
+import SupplierOrders from './pages/supplier/Orders';
+import SupplierPayments from './pages/supplier/Payments';
+import SupplierLogistics from './pages/supplier/Logistics';
 
 const App: React.FC = () => {
-  useEffect(() => {
-    // Basic implementation of scroll reveal using classes
-    const observerOptions = {
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('section > div').forEach(section => {
-      // Avoid immediate animation for hero content which is handled differently
-      if (!section.closest('#home')) {
-        section.classList.add('opacity-0');
-        observer.observe(section);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <HowItWorks />
-        <Categories />
-        <Suppliers />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/installments" element={<Installments />} />
+        <Route path="/tracking" element={<OrderTracking />} />
+
+        {/* Supplier Routes */}
+        <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
+        <Route path="/supplier/products" element={<SupplierProducts />} />
+        <Route path="/supplier/orders" element={<SupplierOrders />} />
+        <Route path="/supplier/payments" element={<SupplierPayments />} />
+        <Route path="/supplier/logistics" element={<SupplierLogistics />} />
+        {/* We will add more routes here for Supplier Dashboard components */}
+      </Routes>
+    </Router>
   );
 };
 
